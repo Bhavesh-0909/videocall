@@ -34,15 +34,15 @@ export default function App() {
   let myMeeting = async (element: HTMLDivElement) => {
     // generate token
     const token = await generateToken(
-      'http://localhost:3000/token',
+      'https://videocall-nodejs-backend.vercel.app/api/token',
       appID,
       userID,
       serverSecret,
       effectiveTimeInSeconds,
     );
-    
+
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
-      2013980891,
+      appID,
       token,
       roomID,
       userID,
