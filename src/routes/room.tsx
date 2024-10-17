@@ -16,8 +16,8 @@ function generateToken(tokenServerUrl: string, appID: number, userID: string, se
       effectiveTimeInSeconds: effectiveTimeInSeconds,
     }),
   }).then(async (res) => {
-    const result = await res.text();
-    return result;
+    const result = await res.json();
+    return result.token;
   });
 }
 
