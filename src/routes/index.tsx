@@ -7,8 +7,8 @@ export default function IndexPage() {
   const { isSignedIn } = useUser()
   const [roomID, setRoomID] = useState('');
 
-  const handleNavigateRoom = () =>{
-    if(roomID){
+  const handleNavigateRoom = () => {
+    if (roomID) {
       navigate(`/room?roomID=${roomID}`)
     } else {
       alert('Please enter room ID')
@@ -17,35 +17,48 @@ export default function IndexPage() {
 
   useEffect(() => {
     if (!isSignedIn) {
-      navigate('/sign-in')
+      navigate('/sign-up');
     }
   }, [isSignedIn, navigate])
 
   return (
-    <main className='w-full min-h-[85vh] h-full flex'>
-        <div className='max-w-[50%] w-full h-full flex flex-col items-start justify-evenly gap-5 p-10 py-20'>
-            <h1>Video calls and meeting for everyone</h1>
-            <p>Connect, collabrate and celebrate fron anywhere with Video</p>
-            <div className='w-full flex justify-between gap-2'>
-                <div className='w-full max-w-[30%]'>
-                    <button className='w-full'>New Meeting</button>
-                </div>
-                <div className='h-102 w-0.5 bg-gray-600'></div>
-                <div className='w-full flex gap-2'>
-                    <input 
-                      className='max-w-[70%] w-full rounded-lg p-2 px-3' 
-                      onChange={(e)=> setRoomID(e.target.value)} 
-                      value={roomID} 
-                      type="text" 
-                      placeholder="Enter your meeting code" 
-                    />
-                    <button className={`${roomID ? "": "cursor-not-allowed"}`} onClick={handleNavigateRoom} disabled={roomID ? false : true}>Join</button>
-                </div>
-            </div>
+    <main className='w-full min-h-[85vh] h-full flex flex-col lg:flex-row'>
+      <div className='lg:max-w-[50%] w-full h-full flex flex-col items-start justify-evenly gap-5 p-6 lg:p-10 py-10 lg:py-20'>
+        <h1 className='text-3xl lg:text-4xl font-bold'>Video calls and meetings for everyone</h1>
+        <p className='text-lg lg:text-xl'>
+          Connect, collaborate, and celebrate from anywhere with Video
+        </p>
+        <div className='w-full flex flex-col lg:flex-row justify-between gap-4 lg:gap-2'>
+          <div className='w-full lg:max-w-[30%]'>
+            <button className='w-full bg-blue-600 text-white py-2 rounded-lg'>New Meeting</button>
+          </div>
+          <div className='hidden lg:block h-10 w-0.5 bg-gray-600'></div>
+          <div className='w-full flex gap-2'>
+            <input 
+              className='w-full lg:max-w-[70%] rounded-lg p-2 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500' 
+              onChange={(e) => setRoomID(e.target.value)} 
+              value={roomID} 
+              type="text" 
+              placeholder="Enter your meeting code" 
+            />
+            <button 
+              className={`bg-blue-600 text-white py-2 px-4 rounded-lg ${roomID ? "" : "opacity-50 cursor-not-allowed"}`} 
+              onClick={handleNavigateRoom} 
+              disabled={!roomID}
+            >
+              Join
+            </button>
+          </div>
         </div>
-        <div className='max-w-[50%] w-full h-full flex items-start justify-center p-10'>
-          <img className='w-[60%] h-[60%]' src="/video-call.png" alt="videocall" />
-        </div>
+      </div>
+      {/* Hide image on smaller devices */}
+      <div className='hidden lg:flex lg:max-w-[50%] w-full h-full items-center justify-center p-6 lg:p-10'>
+        <img 
+          className='w-[60%] h-[60%] object-cover' 
+          src="/video-call.png" 
+          alt="videocall" 
+        />
+      </div>
     </main>
   )
 }

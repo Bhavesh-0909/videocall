@@ -12,15 +12,16 @@ export default function RootLayout() {
   const navigate = useNavigate();
 
   return (
+    <div className='w-screen min-h-screen flex flex-col items-center justify-center'>
     <ClerkProvider
       routerPush={(to) => navigate(to)}
       routerReplace={(to) => navigate(to, { replace: true })}
       publishableKey={PUBLISHABLE_KEY}
     >
-        <main className='w-screen min-h-screen flex flex-col items-center'>
-            <Navbar />
-            <Outlet/>
-        </main>
+      <Navbar />
+      <Outlet/>
     </ClerkProvider>
+    </div>
+    
   )
 }
