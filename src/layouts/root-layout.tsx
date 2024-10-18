@@ -12,7 +12,7 @@ export default function RootLayout() {
   const navigate = useNavigate();
 
   return (
-    <div className='w-screen min-h-screen flex flex-col items-center justify-center'>
+    <div className='w-screen max-w-screen min-h-screen flex flex-col items-center justify-center overflow-x-hidden'>
     <ClerkProvider
       routerPush={(to) => navigate(to)}
       routerReplace={(to) => navigate(to, { replace: true })}

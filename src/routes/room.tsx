@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { useUser } from '@clerk/clerk-react';
+import { useEffect } from 'react';
 
 function generateToken(tokenServerUrl: string, appID: number, userID: string, serverSecret: string, effectiveTimeInSeconds: number) {     
   return fetch(tokenServerUrl, {
@@ -22,7 +23,7 @@ function generateToken(tokenServerUrl: string, appID: number, userID: string, se
 
 export default function App() {
   const [searchparam] = useSearchParams();
-  const { user } = useUser();
+  const { isSignedIn, user } = useUser();
   const roomID = searchparam.get('roomID') as string;
   const appID = parseInt(import.meta.env.VITE_ZEGO_APP_ID);
   const serverSecret = import.meta.env.VITE_ZEGO_SERVER_SECRET;
@@ -74,6 +75,12 @@ export default function App() {
       }
     });
   };
+
+  useEffect(() => {
+    if (!isSignedIn) {
+      window.location.href = '/sign-up';
+    }
+  }, [isSignedIn]);
 
   return (
     <div
