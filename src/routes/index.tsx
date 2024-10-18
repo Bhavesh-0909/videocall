@@ -4,8 +4,21 @@ import { useEffect, useState } from 'react'
 
 export default function IndexPage() {
   const navigate = useNavigate()
-  const { isSignedIn } = useUser()
+  const { isSignedIn, user } = useUser();
   const [roomID, setRoomID] = useState('');
+
+  console.log("user", user);
+
+  const generateRoomID = () => {
+    const randomID = Math.floor(100000 + Math.random() * 900000).toString();
+    return randomID;
+  }
+
+  const handleNewMeeting = () => {
+    const newRoomID = generateRoomID();
+    setRoomID(newRoomID);
+    navigate(`/room?roomID=${newRoomID}`);
+  }
 
   const handleNavigateRoom = () => {
     if (roomID) {
@@ -30,7 +43,7 @@ export default function IndexPage() {
         </p>
         <div className='w-full flex flex-col lg:flex-row justify-between gap-4 lg:gap-2'>
           <div className='w-full lg:max-w-[30%]'>
-            <button className='w-full bg-blue-600 text-white py-2 rounded-lg'>New Meeting</button>
+            <button onClick={handleNewMeeting} className='w-full bg-blue-600 text-white py-2 rounded-lg'>New Meeting</button>
           </div>
           <div className='hidden lg:block h-10 w-0.5 bg-gray-600'></div>
           <div className='w-full flex gap-2'>
