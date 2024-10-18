@@ -61,15 +61,6 @@ export default function App() {
       scenario: {
         mode: ZegoUIKitPrebuilt.GroupCall,
       },
-      onUserAvatarSetter: (members) => {
-        members.forEach((member) => {
-          const avatarUrl = user?.imageUrl || 'https://example.com/avatars/default.png'; // Default avatar
-          console.log(`Setting avatar for userID: ${member.userID}, Avatar URL: ${avatarUrl}`); // Log for debugging
-          if (member.setUserAvatar) {
-            member.setUserAvatar(avatarUrl);
-          }
-        });
-      },
       onLeaveRoom: () => {
         window.location.href = '/';
       }
